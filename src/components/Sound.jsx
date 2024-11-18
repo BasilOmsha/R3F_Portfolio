@@ -1,30 +1,48 @@
-import React, { useRef, useEffect, useState } from 'react';
+// Sound.jsx
+import React, { useRef, useEffect } from 'react';
 import { useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 
 function Sound({ url }) {
-  const sound = useRef();
   const { camera } = useThree();
-  const [listener] = useState(() => new THREE.AudioListener());
+  const sound = useRef();
+  const listener = useRef();
+
+  // Load the audio buffer
   const buffer = useLoader(THREE.AudioLoader, url);
 
   useEffect(() => {
-    if (!sound.current) return;
+    if (!buffer) return;
 
+    // Create an AudioListener and add it to the camera
+    listener.current = new THREE.AudioListener();
+    camera.add(listener.current);
+
+    // Create the global audio source
+    sound.current = new THREE.Audio(listener.current);
     sound.current.setBuffer(buffer);
-    sound.current.setRefDistance(1);
     sound.current.setLoop(true);
-    sound.current.play();
+    sound.current.setVolume(0.5);
 
-    camera.add(listener);
+    // Due to browser autoplay policies, audio playback must be triggered by user interaction
+    // We'll listen for the 'click' event to start playback
+    const handleUserInteraction = () => {
+      sound.current.play();
+      window.removeEventListener('click', handleUserInteraction);
+    };
+
+    window.addEventListener('click', handleUserInteraction);
 
     return () => {
-      sound.current.stop();
-      camera.remove(listener);
+      // Clean up: stop the sound and remove the listener
+      if (sound.current.isPlaying) sound.current.stop();
+      camera.remove(listener.current);
+      window.removeEventListener('click', handleUserInteraction);
     };
-  }, [buffer, camera, listener]);
+  }, [buffer, camera]);
 
-  return <positionalAudio ref={sound} args={[listener]} />;
+  // This component doesn't need to render anything
+  return null;
 }
 
 export default Sound;
