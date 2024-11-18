@@ -23,7 +23,9 @@ export default function Experience({ started }) {
   const computer = useGLTF('./Models/laptop.gltf');
   const desk = useGLTF('./Models/desk.gltf');
   const cup = useGLTF('./Models/mug.gltf');
-  const book = useGLTF('./Models/book_encyclopedia_set_01_1k.gltf/book_encyclopedia_set_01_1k.gltf');
+  const book = useGLTF(
+    './Models/book_encyclopedia_set_01_1k.gltf/book_encyclopedia_set_01_1k.gltf'
+  );
   const dartboard = useGLTF('./Models/dartboard_1k.gltf/dartboard_1k.gltf');
 
   console.log('the computer: ', computer.scene);
@@ -120,9 +122,11 @@ export default function Experience({ started }) {
     cameraRef.current = camera;
 
     if (!isDragging.current) {
-      cube.current.rotation.y += delta * 0.5;
-      cube.current.rotation.x += delta * 0.5;
-      cube.current.rotation.z += delta * 0.5;
+      if (cube.current) {
+        cube.current.rotation.y += delta * 0.5;
+        cube.current.rotation.x += delta * 0.5;
+        cube.current.rotation.z += delta * 0.5;
+      }
     }
 
     if (isDragging.current) {
@@ -263,7 +267,7 @@ export default function Experience({ started }) {
         azimuth={[-1, 0.75]}
         // config={{ mass: 2, tension: 400 }}
         // snap={{ mass: 4, tension: 400 }}
-        >
+      >
         <rectAreaLight
           width={2.5}
           height={1.65}
@@ -274,7 +278,11 @@ export default function Experience({ started }) {
         />
 
         {/* Room Walls */}
-        <mesh position={[0, 2.6, -3.3]} scale={[15, 10, 0.5]} receiveShadow castShadow>
+        <mesh
+          position={[0, 2.6, -3.3]}
+          scale={[15, 10, 0.5]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#354a4f'} />
         </mesh>
@@ -283,25 +291,45 @@ export default function Experience({ started }) {
         <meshStandardMaterial color={'#485c55'} />
       </mesh> */}
         {/* right wall */}
-        <mesh position={[7.8, 5.6, 1.5]} scale={[0.5, 4, 10]}  receiveShadow castShadow>
+        <mesh
+          position={[7.8, 5.6, 1.5]}
+          scale={[0.5, 4, 10]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#485c55'} />
         </mesh>
-        <mesh position={[7.8, 2.6, 5.5]} scale={[0.5, 10, 2]}  receiveShadow castShadow>
+        <mesh
+          position={[7.8, 2.6, 5.5]}
+          scale={[0.5, 10, 2]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#485c55'} />
         </mesh>
-        <mesh position={[7.8, 2.6, -2.5]} scale={[0.5, 10, 2]}  receiveShadow castShadow>
+        <mesh
+          position={[7.8, 2.6, -2.5]}
+          scale={[0.5, 10, 2]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#485c55'} />
         </mesh>
-        <mesh position={[7.8, -1.6, 1.5]} scale={[0.5, 2, 10]}  receiveShadow castShadow>
+        <mesh
+          position={[7.8, -1.6, 1.5]}
+          scale={[0.5, 2, 10]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#485c55'} />
         </mesh>
         {/* right wall end */}
         {/* floor */}
-        <mesh position={[0.3, -2.7, 1.5]} scale={[15.5, 0.5, 10]}  receiveShadow castShadow>
+        <mesh
+          position={[0.3, -2.7, 1.5]}
+          scale={[15.5, 0.5, 10]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial
             map={texture1}
@@ -315,10 +343,14 @@ export default function Experience({ started }) {
           />
         </mesh>
 
-        <Galaxy position={[10.5, 1.2, 1.4]} rotation={[0, 67.545 * 3, 0]} />
+        <Galaxy position={[10.5, 1.2, 1.4]}/>
 
         {/* Shelf */}
-        <mesh scale={[6, 0.3, 0.8]} position={[0.1, 5, -2.7]}  receiveShadow castShadow>
+        <mesh
+          scale={[6, 0.3, 0.8]}
+          position={[0.1, 5, -2.7]}
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#456173'} />
         </mesh>
@@ -328,7 +360,8 @@ export default function Experience({ started }) {
           scale={[6, 0.3, 0.8]}
           rotation={[0, Math.PI / 2, 0]}
           position={[7.2, 5, 1.5]}
-          receiveShadow castShadow>
+          receiveShadow
+          castShadow>
           <boxGeometry />
           <meshStandardMaterial color={'#3a5255'} />
         </mesh>
@@ -365,10 +398,15 @@ export default function Experience({ started }) {
           position={[-0.5, -95, 12.2]}
           rotation={[0, -Math.PI / 2, 0]}
           scale={[3, 3, 3]}
-          receiveShadow castShadow></primitive>
+          receiveShadow
+          castShadow></primitive>
 
         {/* Rug */}
-        <mesh position={[0.1, -2.4, 0.6]} scale={[10.1, 0.01, 6.2]} castShadow receiveShadow>
+        <mesh
+          position={[0.1, -2.4, 0.6]}
+          scale={[10.1, 0.01, 6.2]}
+          castShadow
+          receiveShadow>
           <boxGeometry />
           <meshStandardMaterial
             map={texture5}
@@ -410,7 +448,8 @@ export default function Experience({ started }) {
           onClick={handleLaptopClick}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
-          receiveShadow castShadow>
+          receiveShadow
+          castShadow>
           <Html
             transform
             wrapperClass="htmlScreen"
