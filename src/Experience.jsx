@@ -12,7 +12,7 @@ import {
 import { useRef, useEffect, useMemo, useCallback } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import Galaxy from './components/galaxy';
+import Galaxy from './components/Galaxy.jsx';
 
 // Import custom shaders
 import coffeeSmokeVertexShader from './shaders/vertex.glsl';
