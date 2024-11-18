@@ -1,14 +1,14 @@
 import './style.css';
+import React from 'react';
+import { Leva } from "leva";
 import ReactDOM from 'react-dom/client';
 import { StrictMode } from 'react'
 import App from './App.jsx';
 
-const root = ReactDOM.createRoot(document.querySelector('#root'));
 
-root.render (
-
-    <StrictMode>
-        <App />
-    </StrictMode>,
-
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+      <App />
+      <Leva  />
+    </React.StrictMode>
 );
