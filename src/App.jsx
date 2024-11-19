@@ -46,6 +46,7 @@ const App = () => {
             radius={0.72}
           />
         </EffectComposer> */}
+        <Analytics />
       </Canvas>
       {/* <Loader /> */}
       <LoadingScreen started={start} onStarted={handleStart} />
