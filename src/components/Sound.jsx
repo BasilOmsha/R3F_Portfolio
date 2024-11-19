@@ -1,9 +1,8 @@
-// Sound.jsx
 import React, { useRef, useEffect } from 'react';
 import { useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 
-function Sound({ url }) {
+function Sound({ url, start }) {
   const { camera } = useThree();
   const sound = useRef();
   const listener = useRef();
@@ -24,22 +23,19 @@ function Sound({ url }) {
     sound.current.setLoop(true);
     sound.current.setVolume(0.5);
 
-    // Due to browser autoplay policies, audio playback must be triggered by user interaction
-    // We'll listen for the 'click' event to start playback
-    const handleUserInteraction = () => {
+    // Play the sound if 'start' is true
+    if (start) {
       sound.current.play();
-      window.removeEventListener('click', handleUserInteraction);
-    };
-
-    window.addEventListener('click', handleUserInteraction);
+      console.log('Audio started playing');
+    }
 
     return () => {
       // Clean up: stop the sound and remove the listener
       if (sound.current.isPlaying) sound.current.stop();
       camera.remove(listener.current);
-      window.removeEventListener('click', handleUserInteraction);
+      console.log('Audio stopped and listener removed');
     };
-  }, [buffer, camera]);
+  }, [buffer, camera, start]);
 
   // This component doesn't need to render anything
   return null;
