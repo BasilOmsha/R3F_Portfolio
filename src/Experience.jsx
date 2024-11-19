@@ -243,12 +243,12 @@ export default function Experience({ started }) {
     }
   }, []);
 
-  if (!started) {
-    return null;
-  }
+  // if (!started) {
+  //   return null;
+  // }
 
   return (
-    <>
+    <group visible={started}>
       <Environment preset="city" />
 
       <color args={['#0a0603']} attach="background" />
@@ -343,7 +343,7 @@ export default function Experience({ started }) {
           />
         </mesh>
 
-        <Galaxy position={[10.5, 1.2, 1.4]}/>
+        <Galaxy position={[10.5, 1.2, 1.4]} />
 
         {/* Shelf */}
         <mesh
@@ -441,24 +441,26 @@ export default function Experience({ started }) {
         />
 
         {/* Laptop Model with HTML Screen */}
-        <primitive
-          object={computer.scene}
-          position-y={0.4}
-          scale={[0.8, 0.8, 0.8]}
-          onClick={handleLaptopClick}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-          receiveShadow
-          castShadow>
-          <Html
-            transform
-            wrapperClass="htmlScreen"
-            distanceFactor={1.17}
-            position={[0, 1.56, -1.4]}
-            rotation-x={-0.256}>
-            <iframe src="https://portfolio-page-iota-rust.vercel.app/" />
-          </Html>
-        </primitive>
+        {started && (
+          <primitive
+            object={computer.scene}
+            position-y={0.4}
+            scale={[0.8, 0.8, 0.8]}
+            onClick={handleLaptopClick}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+            receiveShadow
+            castShadow>
+            <Html
+              transform
+              wrapperClass="htmlScreen"
+              distanceFactor={1.17}
+              position={[0, 1.56, -1.4]}
+              rotation-x={-0.256}>
+              <iframe src="https://portfolio-page-iota-rust.vercel.app/" />
+            </Html>
+          </primitive>
+        )}
       </PresentationControls>
 
       {/* 3D Text */}
@@ -482,6 +484,6 @@ export default function Experience({ started }) {
       />
 
       {/* <ContactShadows position-y={3.35} opacity={0.85} scale={10} blur={2.4}  /> */}
-    </>
+    </group>
   );
 }
