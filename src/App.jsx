@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import Experience from './Experience.jsx';
-import LoadingScreen from './components/LoadingScreen.jsx';
-import Sound from './components/Sound.jsx';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useState, useEffect } from 'react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { Analytics } from "@vercel/analytics/react";
+import LoadingScreen from './components/LoadingScreen.jsx'; 
+import Sound from './components/Sound.jsx';
+import { Loader} from '@react-three/drei';
+import { Analytics } from "@vercel/analytics/react"
+
+// const audio = new Audio('./sound/nightfall-future-bass-music-228100.mp3');
 
 const App = () => {
   const cameraSettings = {
@@ -17,22 +19,25 @@ const App = () => {
 
   const [start, setStart] = useState(false);
 
+  // useEffect(() => {
+  //   if (start) {
+  //     audio.play();
+  //   }
+  // }, [start]);
+
   const handleStart = () => {
     setStart(true);
+    // audio.play();
   };
 
   return (
     <>
       <Canvas className="r3f" camera={cameraSettings} shadows>
         {/* <fog attach="fog" args={['#16a04b', 12, 30]} /> */}
-        {/* Render Sound component only when 'start' is true */}
-        {start && (
-          <Sound url='/sounds/2019-04-26_-_Tranquility_-_www.fesliyanstudios.com.mp3' start={start} />
-        )}
+        {start && <Sound url='./sounds/2019-04-26_-_Tranquility_-_www.fesliyanstudios.com.mp3' />}
         <Suspense fallback={null}>
           <Experience started={start} />
         </Suspense>
-        {/* Uncomment if using postprocessing effects */}
         {/* <EffectComposer>
           <Bloom
             mipmapBlur
@@ -43,7 +48,7 @@ const App = () => {
         </EffectComposer> */}
         <Analytics />
       </Canvas>
-      {/* LoadingScreen handles the start of the experience */}
+      {/* <Loader /> */}
       <LoadingScreen started={start} onStarted={handleStart} />
     </>
   );
