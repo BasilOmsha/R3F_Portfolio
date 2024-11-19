@@ -1,6 +1,6 @@
 import Experience from './Experience.jsx';
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import LoadingScreen from './components/LoadingScreen.jsx'; 
 import Sound from './components/Sound.jsx';
@@ -19,6 +19,8 @@ const App = () => {
 
   const [start, setStart] = useState(false);
 
+  const soundRef = useRef();
+
   // useEffect(() => {
   //   if (start) {
   //     audio.play();
@@ -27,14 +29,18 @@ const App = () => {
 
   const handleStart = () => {
     setStart(true);
-    // audio.play();
+    console.log('Start Experience clicked');
+    if (soundRef.current) {
+      soundRef.current.playAudio();
+    }
   };
 
   return (
     <>
       <Canvas className="r3f" camera={cameraSettings} shadows>
         {/* <fog attach="fog" args={['#16a04b', 12, 30]} /> */}
-        {start && <Sound url='./sounds/2019-04-26_-_Tranquility_-_www.fesliyanstudios.com.mp3' />}
+        {/* {start && <Sound url='./sounds/2019-04-26_-_Tranquility_-_www.fesliyanstudios.com.mp3' />} */}
+        <Sound ref={soundRef} url='/sounds/2019-04-26_-_Tranquility_-_www.fesliyanstudios.com.mp3' />
         <Suspense fallback={null}>
           <Experience started={start} />
         </Suspense>

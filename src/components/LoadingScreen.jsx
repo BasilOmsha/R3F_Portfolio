@@ -1,5 +1,6 @@
 import { useProgress } from "@react-three/drei";
 export default function({ started, onStarted }) {
+  if (started) return null;
     const { progress } = useProgress();
   return (
     <div className={`loadingScreen ${started ? "loadingScreen--started" : ""}`}>
