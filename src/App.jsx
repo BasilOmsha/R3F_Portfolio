@@ -5,6 +5,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import LoadingScreen from './components/LoadingScreen.jsx'; 
 import Sound from './components/Sound.jsx';
 import { Loader} from '@react-three/drei';
+import { Analytics } from "@vercel/analytics/react"
 
 // const audio = new Audio('./sound/nightfall-future-bass-music-228100.mp3');
 
